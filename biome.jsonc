@@ -1,0 +1,68 @@
+{
+   "$schema": "https://biomejs.dev/schemas/2.4.8/schema.json",
+
+   // INTEGRAÇÃO COM GIT
+   "vcs": {
+      "enabled": true, // Ativa integração
+      "clientKind": "git", // Define cliente
+      "useIgnoreFile": true // Lê o .gitignore
+   },
+
+   // FORMATADOR GLOBAL
+   "formatter": {
+      "enabled": true, // Ativa formatador
+      "formatWithErrors": true, // Formata mesmo com erros
+      "indentStyle": "space", // Sincronizado com settings.json (insertSpaces: true)
+      "indentWidth": 3, // Sincronizado com settings.json
+      "lineWidth": 120, // Quebra de linha
+      "lineEnding": "lf" // Padrão Linux/Git
+   },
+
+   // JAVASCRIPT & REACT
+   "javascript": {
+      "formatter": {
+         "quoteStyle": "single", // Aspas simples (JS/TS)
+         "jsxQuoteStyle": "double", // Aspas duplas (React/JSX)
+         "semicolons": "always", // Ponto e vírgula obrigatório
+         "trailingCommas": "all", // Vírgula no fim de listas
+         "arrowParentheses": "always", // Parênteses em (x) =>
+         "bracketSpacing": true, // Espaço em { x: 1 }
+         "bracketSameLine": false // Tag final ">" em nova linha
+      }
+   },
+
+   // HTML
+   "html": {
+      "formatter": {
+         "enabled": true // Ativa formatador
+      }
+   },
+
+   // CSS
+   "css": {
+      "formatter": {
+         "enabled": true // Ativa formatador
+      }
+   },
+
+   // JSON
+   "json": {
+      "formatter": {
+         "trailingCommas": "none" // Remove vírgulas finais (evita quebra)
+      },
+      "parser": {
+         "allowComments": true // Permite usar .jsonc
+      }
+   },
+
+   // LINTER (Avisos e Regras)
+   "linter": {
+      "enabled": true, // Ativa verificações
+      "rules": {
+         "recommended": true, // Regras padrão da indústria
+         "complexity": {
+            "noImportantStyles": "off" // Ignora alertas de !important
+         }
+      }
+   }
+}
