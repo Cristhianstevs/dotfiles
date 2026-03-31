@@ -1,67 +1,101 @@
 {
-   "$schema": "https://biomejs.dev/schemas/2.4.8/schema.json",
+   "$schema": "https://biomejs.dev/schemas/2.4.10/schema.json", // Esquema da versão atual (atualize quando necessário)
 
    // INTEGRAÇÃO COM GIT
    "vcs": {
-      "enabled": true, // Ativa integração
-      "clientKind": "git", // Define cliente
-      "useIgnoreFile": true // Lê o .gitignore
+      "enabled": true, // Ativa a integração com controle de versão
+      "clientKind": "git", // Define o Git como cliente oficial
+      "useIgnoreFile": true // Lê o arquivo .gitignore para não formatar o que está ignorado lá
    },
 
    // FORMATADOR GLOBAL
    "formatter": {
-      "enabled": true, // Ativa formatador
-      "formatWithErrors": true, // Formata mesmo com erros
-      "indentStyle": "space", // Sincronizado com settings.json (insertSpaces: true)
-      "indentWidth": 3, // Sincronizado com settings.json
-      "lineWidth": 120, // Quebra de linha
-      "lineEnding": "lf" // Padrão Linux/Git
+      "enabled": true, // Ativa o formatador global
+
+      "formatWithErrors": true, // Formata o arquivo mesmo se ele contiver erros de sintaxe/digitação
+
+      "indentStyle": "space", // Usa espaços em vez de tabs ("space" ou "tab")
+      "indentWidth": 3, // Quantidade de espaços por indentação (o padrão web é 2, ajuste conforme seu gosto)
+
+      "bracketSameLine": false, // false: Quebra o ">" final de tags HTML/JSX grandes para a linha de baixo
+
+      "lineWidth": 80, // Limite de caracteres antes do formatador forçar a quebra de linha
+      "lineEnding": "auto", // Quebra de linha padrão (auto, lf, crlf, cr)
+
+      // AVANÇADO
+      "attributePosition": "multiline", // multiline: Força cada atributo HTML/JSX em uma nova linha se houver quebra
+      "bracketSpacing": true, // true: Insere espaços dentro de chaves { foo: bar }
+      "expand": "auto", // auto: Expande objetos/arrays em múltiplas linhas de forma inteligente
+
+      // CONTROLE DE ARQUIVOS
+      "includes": ["**/*"] // Aplica a formatação em todos os arquivos permitidos no projeto
    },
 
-   // JAVASCRIPT & REACT
+   // JAVASCRIPT / TYPESCRIPT / REACT
    "javascript": {
       "formatter": {
-         "quoteStyle": "single", // Aspas simples (JS/TS)
-         "jsxQuoteStyle": "double", // Aspas duplas (React/JSX)
-         "semicolons": "always", // Ponto e vírgula obrigatório
-         "trailingCommas": "all", // Vírgula no fim de listas
-         "arrowParentheses": "always", // Parênteses em (x) =>
-         "bracketSpacing": true, // Espaço em { x: 1 }
-         "bracketSameLine": false // Tag final ">" em nova linha
+         "enabled": true, // Ativa o formatador para JS/TS/React
+
+         "quoteStyle": "single", // Usa aspas simples no código JS/TS ('')
+         "jsxQuoteStyle": "double", // Usa aspas duplas em atributos React/JSX ("")
+
+         "semicolons": "always", // Exige ponto e vírgula no final de cada instrução
+         "trailingCommas": "all", // Insere vírgula no último item de listas/objetos (excelente para o Git)
+
+         "arrowParentheses": "always", // Mantém parênteses em arrow functions, ex: (x) => x
+         "bracketSpacing": true, // Insere espaços dentro de chaves no JS/TS
+         "bracketSameLine": false, // Joga o ">" do fechamento de tags JSX para a linha seguinte
+
+         "quoteProperties": "asNeeded" // Remove aspas das chaves de objetos quando não forem estritamente necessárias
       }
    },
 
    // HTML
    "html": {
       "formatter": {
-         "enabled": true // Ativa formatador
+         "enabled": false // Desativa o formatador para HTML
       }
    },
 
    // CSS
    "css": {
       "formatter": {
-         "enabled": true // Ativa formatador
+         "enabled": true // Ativa o formatador para CSS
       }
    },
 
-   // JSON
+   // JSON / JSONC
    "json": {
       "formatter": {
-         "trailingCommas": "none" // Remove vírgulas finais (evita quebra)
+         "enabled": true, // Ativa o formatador para JSON
+         "trailingCommas": "none" // none: Proíbe vírgulas no último item (vírgulas sobrando quebram arquivos JSON)
       },
       "parser": {
-         "allowComments": true // Permite usar .jsonc
+         "allowComments": true // Permite o uso de comentários no arquivo (cria o padrão .jsonc)
       }
    },
 
-   // LINTER (Avisos e Regras)
+   // LINTER (Detetive de Código / Avisos)
    "linter": {
-      "enabled": true, // Ativa verificações
+      "enabled": true, // Ativa as verificações de más práticas no código
       "rules": {
-         "recommended": true, // Regras padrão da indústria
+         "recommended": true, // Ativa as regras de segurança padrão da indústria
          "complexity": {
-            "noImportantStyles": "off" // Ignora alertas de !important
+            "noImportantStyles": "off" // off: Permite usar !important no CSS/Tailwind sem gerar alertas
+         },
+         "a11y": {
+            "useHtmlLang": "off", // off: Desativa a exigência de colocar lang="" na tag HTML
+            "useAltText": "off" // off: Desativa a exigência de colocar alt="" em imagens
+         }
+      }
+   },
+
+   // AUTO FIX / IMPORTS
+   "assist": {
+      "enabled": true, // Ativa o assistente de correções rápidas
+      "actions": {
+         "source": {
+            "organizeImports": "on" // on: Organiza e agrupa as importações automaticamente no topo do arquivo
          }
       }
    }

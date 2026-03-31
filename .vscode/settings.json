@@ -16,6 +16,8 @@
    "workbench.startupEditor": "newUntitledFile", // Inicia com arquivo vazio
    "workbench.tree.indent": 16, // Recuo lateral de pastas
    "breadcrumbs.enabled": false, // Oculta caminho no topo
+   "workbench.iconTheme": "material-icon-theme", // Icones personalizados da extensão Material Icons Theme
+   "workbench.colorTheme": "Visual Studio Dark", // Tema dark moderno
 
    // FONTE E ESTILO
    "editor.fontFamily": "JetBrains Mono", // Fonte oficial
@@ -57,6 +59,21 @@
    "[typescriptreact]": { "editor.defaultFormatter": "biomejs.biome" },
    "[json]": { "editor.defaultFormatter": "biomejs.biome" },
    "[jsonc]": { "editor.defaultFormatter": "biomejs.biome" },
-   "[html]": { "editor.defaultFormatter": "biomejs.biome" },
-   "[css]": { "editor.defaultFormatter": "biomejs.biome" }
+   "[html]": { "editor.defaultFormatter": "vscode.html-language-features" },
+   "[css]": { "editor.defaultFormatter": "biomejs.biome" },
+
+   // --- CONFIGURAÇÕES PERSONALIZADAS DE HTML ---
+  "html.format.enable": true,
+  "html.format.wrapLineLength": 120, // Só quebra a linha se passar de 120 caracteres
+
+  // Como ele deve quebrar os atributos se a linha for muito longa:
+  // "auto" (quebra apenas se precisar)
+  // "force-expand-multiline" (força 1 atributo por linha se quebrar, que é o que você quer)
+  // "preserve" (respeita as quebras de linha que você mesmo der)
+  "html.format.wrapAttributes": "",
+
+  "html.format.preserveNewLines": true, // Respeita espaços em branco extras que você colocar para separar blocos
+  "html.format.maxPreserveNewLines": 1, // Mas limita a no máximo 1 linha em branco seguida para não virar bagunça
+  "html.format.indentInnerHtml": false, // Mantém a tag <head> e <body> alinhadas sem recuo excessivo
+  "html.format.unformatted": "wbr"// Evita que certas tags inline quebrem
 }
