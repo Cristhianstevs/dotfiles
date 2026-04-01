@@ -1,79 +1,30 @@
 {
-   // FERRAMENTAS E EXTENSÕES
-   "github.copilot.enable": {
-      "*": false, // Desativa global
-      "plaintext": false, // Desativa em texto
-      "markdown": false, // Desativa em MD
-      "scminput": false // Desativa no Git
-   },
-   "gitlens.ai.model": "vscode", // IA base
-   "gitlens.ai.vscode.model": "copilot:gpt-4.1", // Força GPT-4
-   "liveServer.settings.donotVerifyTags": true, // Sem alertas de HTML vazio
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
 
-   // INTERFACE DO EDITOR
-   "window.customTitleBarVisibility": "windowed", // Barra de título nativa
-   "explorer.compactFolders": false, // Desativa pastas em linha
-   "workbench.startupEditor": "newUntitledFile", // Inicia com arquivo vazio
-   "workbench.tree.indent": 16, // Recuo lateral de pastas
-   "breadcrumbs.enabled": false, // Oculta caminho no topo
-   "workbench.iconTheme": "material-icon-theme", // Icones personalizados da extensão Material Icons Theme
-   "workbench.colorTheme": "Visual Studio Dark", // Tema dark moderno
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports.biome": "explicit"
+  },
 
-   // FONTE E ESTILO
-   "editor.fontFamily": "JetBrains Mono", // Fonte oficial
-   "editor.fontSize": 14, // Tamanho
-   "editor.lineHeight": 1.8, // Espaçamento entre linhas
-   "editor.fontLigatures": true, // Ativa setas bonitas (=>)
-   "editor.renderLineHighlight": "gutter", // Destaca número da linha
-   "editor.wordWrap": "on", // Quebra de linha visual
+  "editor.defaultFormatter": "biomejs.biome",
 
-   // INDENTAÇÃO BASE
-   "editor.tabSize": 3, // Tamanho do recuo
-   "editor.insertSpaces": true, // Usa Espaços em vez de Tabs
-   "editor.detectIndentation": false, // Força suas regras sempre
-   "files.trimTrailingWhitespace": true, // Limpa espaços finais ao salvar
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
 
-   // COMPORTAMENTO DE SALVAMENTO
-   "files.autoSave": "afterDelay", // Salva sozinho ao parar de digitar
-   "editor.formatOnSave": false, // Formatação apenas manual (Alt+Shift+F)
-   "editor.formatOnType": false, // Sem formatar enquanto digita
-
-   // SEGURANÇA JSON
-   // Domínios confiáveis para download de esquemas (evita pop-ups)
-   "json.schemaDownload.trustedDomains": {
-      "https://schemastore.azurewebsites.net/": true,
-      "https://raw.githubusercontent.com/": true,
-      "https://www.schemastore.org/": true,
-      "https://json.schemastore.org/": true,
-      "https://json-schema.org/": true,
-      "https://biomejs.dev": true
-   },
-
-   // DOMÍNIO DO BIOME
-   "editor.defaultFormatter": "biomejs.biome", // Formatador global
-
-   // Força o Biome por linguagem
-   "[javascript]": { "editor.defaultFormatter": "biomejs.biome" },
-   "[typescript]": { "editor.defaultFormatter": "biomejs.biome" },
-   "[javascriptreact]": { "editor.defaultFormatter": "biomejs.biome" },
-   "[typescriptreact]": { "editor.defaultFormatter": "biomejs.biome" },
-   "[json]": { "editor.defaultFormatter": "biomejs.biome" },
-   "[jsonc]": { "editor.defaultFormatter": "biomejs.biome" },
-   "[html]": { "editor.defaultFormatter": "vscode.html-language-features" },
-   "[css]": { "editor.defaultFormatter": "biomejs.biome" },
-
-   // --- CONFIGURAÇÕES PERSONALIZADAS DE HTML ---
-  "html.format.enable": true,
-  "html.format.wrapLineLength": 120, // Só quebra a linha se passar de 120 caracteres
-
-  // Como ele deve quebrar os atributos se a linha for muito longa:
-  // "auto" (quebra apenas se precisar)
-  // "force-expand-multiline" (força 1 atributo por linha se quebrar, que é o que você quer)
-  // "preserve" (respeita as quebras de linha que você mesmo der)
-  "html.format.wrapAttributes": "",
-
-  "html.format.preserveNewLines": true, // Respeita espaços em branco extras que você colocar para separar blocos
-  "html.format.maxPreserveNewLines": 1, // Mas limita a no máximo 1 linha em branco seguida para não virar bagunça
-  "html.format.indentInnerHtml": false, // Mantém a tag <head> e <body> alinhadas sem recuo excessivo
-  "html.format.unformatted": "wbr"// Evita que certas tags inline quebrem
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ],
+  "editor.quickSuggestions": {
+    "strings": true
+  }
 }

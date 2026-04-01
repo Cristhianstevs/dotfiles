@@ -1,6 +1,6 @@
 # 🚀 Setup: Ambiente de Desenvolvimento
 
-Este documento contém o passo a passo exato para configurar um computador Windows zerado para desenvolvimento web moderno utilizando Node.js, Next.js, React e Biome.
+Este documento contém o passo a passo exato para configurar um computador Windows zerado para desenvolvimento web moderno utilizando Node.js, Next.js, React e ferramentas de altíssimo desempenho como Biome e pnpm.
 
 <br />
 
@@ -11,6 +11,12 @@ Abra o **PowerShell como Administrador** (Menu Iniciar > clique com o direito > 
 ```powershell
 # Instala o gerenciador de versões do Node (NVM)
 winget install -e --id CoreyButler.NVMforWindows
+
+# Instala o Git (Obrigatório para versionamento)
+winget install -e --id Git.Git
+
+# Instala o GitHub Desktop (Interface visual para o Git)
+winget install -e --id GitHub.GitHubDesktop
 
 # Instala o Python 3 (Opcional - instale apenas se for utilizar)
 winget install -e --id Python.Python.3
@@ -63,7 +69,7 @@ Se o Windows não reconhecer o comando acima, é porque o terminal ainda não at
 
 1. Feche o PowerShell completamente.
 2. Abra um novo PowerShell.
-3. Rode novamente: pnpm --version
+3. Rode novamente: `pnpm --version`
 
 Se ainda assim não funcionar, reinicie o computador e tente novamente.
 
@@ -115,6 +121,7 @@ tsc -v
 biome --version
 python --version
 code --version
+git -v
 ```
 
 <br />
@@ -123,20 +130,21 @@ code --version
 
 ### Fonte: JetBrains Mono
 
-O nosso VS Code usará uma fonte otimizada para leitura de código com "font ligatures" (que transforma => em setas desenhadas).
+O nosso VS Code usará uma fonte otimizada para leitura de código com "font ligatures" (que transforma `=>` em setas desenhadas).
 
 1. Baixe a fonte oficial aqui: [JetBrains Mono](https://www.jetbrains.com/pt-br/lp/mono/)
-2. Extraia o .zip
-3. Selecione todos os arquivos .ttf
-4. Clique com o botão direito e selecione Instalar.
+2. Extraia o `.zip`
+3. Selecione todos os arquivos `.ttf`
+4. Clique com o botão direito e selecione **Instalar**.
 
 <br />
 
-## 🧩 9. Minhas Extensões Essenciais
+## 🧩 9. Extensões Essenciais
 
-Abra o VS Code, vá na aba de extensões (Ctrl + Shift + X) e instale:
+Abra o VS Code, vá na aba de extensões (`Ctrl + Shift + X`) e instale as recomendadas:
 
 - Biome - Oficial da biomejs (Lembre-se de clicar em Switch to Pre-Release Version)
+- Prettier - Code formatter - Para diagramação de HTML e CSS
 - Auto Rename Tag
 - Code Snap
 - DotENV
@@ -149,61 +157,89 @@ Abra o VS Code, vá na aba de extensões (Ctrl + Shift + X) e instale:
 - PowerShell
 - React Native Tools
 - Simple React Snippets
-- Tailwind CSS IntelliSence
+- Tailwind CSS IntelliSense
 
 <br />
 
 ## ⚙️ 10. Configuração do VS Code (settings.json)
 
-### 10.1 Global
+### 10.1 Global (Preferências de Usuário)
 
-Vamos forçar o VS Code a usar nossas regras e o Biome como formatador soberano.
+Vamos forçar o VS Code a usar nossas regras de interface e comportamento.
 
-1. No VS Code, aperte F1 (ou Ctrl + Shift + P).
-2. Digite Open User Settings (JSON) e dê Enter.
-3. Apague tudo que estiver lá, cole o código que está em [settings.json](.vscode/settings.json)
+1. No VS Code, aperte `F1` (ou `Ctrl + Shift + P`).
+2. Digite `Open User Settings (JSON)` e dê Enter.
+3. Apague tudo que estiver lá, cole o código que está no arquivo [user/settings.json](user/settings.json)
 
-### 10.2 Projeto
+### 10.2 Projeto (Regras da Equipe)
 
-1. Crie uma pasta chamada `.vscode` na raiz do projeto
-2. Dentro da pasta crie um arquivo settings.json e cole o código que está em [settings.json](.vscode/settings.json)
+Estas regras forçam os formatadores (Biome e Prettier) a agirem nas linguagens corretas em qualquer máquina.
+
+1. Crie uma pasta chamada `.vscode` na raiz do projeto.
+2. Dentro da pasta, crie um arquivo `settings.json` e cole o código que está em [.vscode/settings.json](.vscode/settings.json).
+3. Crie um arquivo `extensions.json` para recomendar extensões automaticamente para a equipe e cole o código de [.vscode/extensions.json](.vscode/extensions.json).
 
 <br />
 
-## 🚀 11. Configuração do Projeto (biome.jsonc)
+## 🚀 11. Configuração de Formatadores e Padronização
 
-Regra de Ouro: Ferramentas devem viver dentro do projeto. Para que o Biome formate corretamente seus arquivos e outros desenvolvedores tenham a mesma formatação, instale-o localmente em toda nova pasta de projeto.
+Regra de Ouro: Ferramentas devem viver dentro do projeto. Copie os arquivos listados abaixo para a raiz de todo novo projeto que você iniciar.
 
-1. Abra a pasta do seu projeto no VS Code.
-2. Crie um arquivo chamado biome.jsonc na raiz da pasta.
-3. Cole o código que está em biome.jsonc
+### 11.1 O Formatador JavaScript/React (`biome.jsonc`)
 
-OBSERVAÇÕES: Caso já tenha biome.jsonc, renomeie para biome.jsonc. Não pode ter duplicidade com o arquivo de configurações do Biome. O .jsonc permite comentários.
+Cuida da performance e linting de todo o ecossistema JS.
+
+1. Crie o arquivo `biome.jsonc` na raiz e cole o código do nosso [biome.jsonc](biome.jsonc).
+
+_Nota_: Caso o framework já tenha gerado um `biome.json`, renomeie para `.jsonc` e substitua o conteúdo. Não pode haver duplicidade.
+
+### 11.2 O Formatador HTML/CSS (`.prettierrc`)
+
+O Biome é o rei do JS, mas o Prettier é o mestre do design visual para tags web.
+
+1. Crie o arquivo `.prettierrc` na raiz e cole o código do nosso [.prettierrc](.prettierrc).
+
+### 11.3 O Acordo de Paz Universal (`.editorconfig`)
+
+Garante que o tamanho do TAB (2 espaços) funcione em qualquer editor de código do mundo (WebStorm, Sublime, etc).
+
+1. Crie o arquivo `.editorconfig` na raiz e cole o código do nosso [.editorconfig](.editorconfig).
+
+### 11.4 Prevenção de Bugs de Sistema (.gitattributes)
+
+Impede que o Windows mude silenciosamente a quebra de linha dos arquivos, o que quebraria os formatadores.
+
+1. Crie o arquivo `.gitattributes` na raiz e cole o código do nosso [.gitattributes](.gitattributes).
 
 <br />
 
 ## 🔄 12. Toque Final e Troubleshooting
 
-Sempre que editar os arquivos de configuração do VS Code ou do Biome pela primeira vez, aperte F1, digite Reload Window e aperte Enter para o VS Code recarregar a memória e achar o motor local.
+Sempre que editar os arquivos de configuração do VS Code ou do Biome pela primeira vez, aperte `F1`, digite `Reload Window` e aperte Enter para o VS Code recarregar a memória e achar o motor local.
 
-Para formatar qualquer arquivo, use o atalho: Alt + Shift + F.
+**A Mágica**: Você não precisa mais usar atalhos de formatação! Graças às nossas configurações, basta salvar o arquivo (`Ctrl + S` ou clicar fora dele) que os imports serão organizados e o código formatado instantaneamente.
 
-O arquivo não formatou? Verifique o log do Biome:
-No canto superior esquerdo: View > Terminal > Output (ou aperte Ctrl + Shift + U).
-No menu suspenso do painel (onde costuma estar escrito "Tasks" ou "Window"), troque para Biome. O erro exato estará descrito lá.
+### O arquivo não formatou? Verifique o log do Biome:
+
+1. No canto superior esquerdo: `View > Terminal > Output` (ou aperte Ctrl + Shift + U).
+2. No menu suspenso do painel (onde costuma estar escrito "Tasks" ou "Window"), troque para Biome. O erro exato estará descrito lá.
 
 <br />
 
-Pronto! A estrutura de pastas que você precisa ter no seu repositório do GitHub agora é simplesmente:
+**Pronto!** A estrutura de pastas que você precisa ter no seu repositório do GitHub agora é simplesmente:
 
 ```
-.vscode/
-└── settings.json
-biome.jsonc
+dotfiles/
+├── .vscode/
+│   ├── extensions.json
+│   └── settings.json
+├── user/
+│   └── settings.json
+├── .editorconfig
+├── .gitattributes
+├── .prettierrc
+├── biome.jsonc
+└── README.md (você está aqui!)
 ```
-
-- settings.json (Aquele nosso completão com as configs do editor)
-- biome.jsonc (O de regras do projeto que criamos)
-- README.md (Com este código acima)
 
 Ficou no ponto para usar em qualquer projeto ou máquina nova!

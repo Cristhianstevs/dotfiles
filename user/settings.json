@@ -1,0 +1,24 @@
+{
+  "editor.fontFamily": "'JetBrains Mono', Consolas, monospace",
+  "editor.fontSize": 14,
+  "editor.lineHeight": 1.7,
+  "editor.fontLigatures": true,
+  "editor.wordWrap": "on",
+  "window.customTitleBarVisibility": "windowed",
+  "explorer.compactFolders": false,
+
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Visual Studio Dark",
+
+  "files.autoSave": "onFocusChange",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false
+  },
+  "gitlens.ai.model": "vscode",
+  "gitlens.ai.vscode.model": "copilot:gpt-4.1"
+}
