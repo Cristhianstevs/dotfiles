@@ -91,20 +91,24 @@ pnpm add -g @biomejs/biome
 
 ## 🔄 6. Atualização do Ambiente (Update)
 
-Sempre que quiser atualizar seu ambiente de desenvolvimento, utilize os comandos abaixo:
+Sempre que quiser atualizar seu ambiente de desenvolvimento, utilize os comandos abaixo. É recomendado atualizar pacotes de forma explícita para evitar que atualizações automáticas quebrem outros softwares do PC:
 
 ```powershell
-# Atualiza todos os programas instalados via winget
-winget upgrade --all
+# Atualiza os motores principais via winget
+winget upgrade --id Git.Git
+winget upgrade --id Microsoft.VisualStudioCode
+winget upgrade --id CoreyButler.NVMforWindows
+winget upgrade --id GitHub.GitHubDesktop
 
 # Atualiza o Node.js para a versão LTS mais recente
 nvm install lts
 nvm use lts
 
-# Atualiza ferramentas globais
-pnpm add -g pnpm
-pnpm add -g typescript
-pnpm add -g @biomejs/biome
+# Atualiza o pnpm (via Corepack, mantendo a arquitetura oficial)
+corepack prepare pnpm@latest --activate
+
+# Atualiza ferramentas globais instaladas pelo pnpm
+pnpm update -g typescript @biomejs/biome
 ```
 
 <br />
