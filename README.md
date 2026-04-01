@@ -2,14 +2,22 @@
 
 Este documento contém o passo a passo exato para configurar um computador Windows zerado para desenvolvimento web moderno utilizando Node.js, Next.js, React e ferramentas de altíssimo desempenho como Biome e pnpm.
 
+<details>
+
+<summary><span style="font-size: 15px; font-weight: 600;">🏢 Nota de Segurança em Ambiente Corporativo</span></summary>
+
 <br />
 
-### 🏢 Nota de Segurança para Ambientes Corporativos
+Se você está configurando este ambiente em um **computador da empresa**, por favor, leia atentamente antes de prosseguir. Este _dotfiles_ foi montado para máxima produtividade, mas ambientes corporativos possuem regras estritas de Segurança da Informação (InfoSec) e LGPD:
 
-Se você está configurando este ambiente em um **computador da empresa**, preste muita atenção nestas duas regras antes de prosseguir, para garantir a conformidade com a LGPD e as políticas de Segurança da Informação (InfoSec):
+1. **🛑 Validação Obrigatória (InfoSec):** Antes de realizar qualquer download, importação de configurações ou execução dos comandos deste repositório na rede da empresa, **envie o link deste projeto para o setor de Segurança da Informação (ou TI) para validação prévia.**
+2. **⚠️ Execução de Scripts e Permissões de Admin:** A Seção 1 exige privilégios de Administrador. Além disso, o comando `Set-ExecutionPolicy` (Seção 3) altera as políticas de execução do Windows. Em redes corporativas, isso geralmente é bloqueado e monitorado, podendo gerar alertas graves na TI. Não force a execução sem permissão.
+3. **🤖 Inteligência Artificial (Código Proprietário):** Extensões como o GitHub Copilot enviam contexto do seu código para servidores externos. **NÃO FAÇA LOGIN** nestas extensões com contas pessoais/estudante sem a aprovação explícita do seu Tech Lead. O vazamento de regras de negócio ou dados de clientes é uma violação gravíssima.
+4. **🛡️ Estabilidade de Software:** Evite usar versões _Pre-Release_ de extensões no horário de trabalho. Opte sempre pelas versões _Stable_ para evitar falhas inesperadas de produtividade.
 
-1. **⚠️ Ferramentas de Inteligência Artificial (GitHub Copilot / GitLens AI):** O uso de IAs generativas que leem o seu código envia dados para servidores externos. **NÃO FAÇA LOGIN** nestas extensões com sua conta pessoal/estudante sem a aprovação explícita do seu Tech Lead ou supervisor. O vazamento acidental de código-fonte corporativo, chaves de API ou dados de clientes (PII) é uma violação gravíssima de segurança.
-2. **🛡️ Estabilidade de Software (Pre-releases):** Na Seção 9, é recomendado o uso da versão _Pre-Release_ do Biome para ter acesso às últimas novidades em projetos pessoais. No ambiente da empresa, **instale apenas a versão Estável (Stable)** para evitar que bugs não documentados travem o seu editor durante o horário de trabalho.
+> **O Projeto pode Melhorar!** A arquitetura estrutural e a varredura de segurança inicial deste repositório foram construídas com o auxílio de inteligência artificial (**Gemini 3.1 Pro**), visto que não sou formado em _CyberSecurity_. Como a IA não substitui o olhar rigoroso de um profissional da área, este projeto está de portas abertas! _Issues_, _Pull Requests_ e feedbacks de engenheiros de segurança corporativa ou desenvolvedores da comunidade são extremamente bem-vindos para tornar este ambiente cada vez mais blindado e compatível com as exigências de mercado.
+
+</details>
 
 <br />
 
