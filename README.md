@@ -4,6 +4,15 @@ Este documento contém o passo a passo exato para configurar um computador Windo
 
 <br />
 
+### 🏢 Nota de Segurança para Ambientes Corporativos (Compliance)
+
+Se você está configurando este ambiente em um **computador da empresa**, preste muita atenção nestas duas regras antes de prosseguir, para garantir a conformidade com a LGPD e as políticas de Segurança da Informação (InfoSec):
+
+1. **⚠️ Ferramentas de Inteligência Artificial (GitHub Copilot / GitLens AI):** O uso de IAs generativas que leem o seu código envia dados para servidores externos. **NÃO FAÇA LOGIN** nestas extensões com sua conta pessoal/estudante sem a aprovação explícita do seu Tech Lead ou supervisor. O vazamento acidental de código-fonte corporativo, chaves de API ou dados de clientes (PII) é uma violação gravíssima de segurança.
+2. **🛡️ Estabilidade de Software (Pre-releases):** Na Seção 9, é recomendado o uso da versão _Pre-Release_ do Biome para ter acesso às últimas novidades em projetos pessoais. No ambiente da empresa, **instale apenas a versão Estável (Stable)** para evitar que bugs não documentados travem o seu editor durante o horário de trabalho.
+
+<br />
+
 ## 📦 1. Instalações Base (Programas Nativos)
 
 Abra o **PowerShell como Administrador** (Menu Iniciar > clique com o direito > Executar como Administrador) e rode os comandos abaixo um por um para instalar os motores principais silenciosamente:
