@@ -145,23 +145,36 @@ O nosso VS Code usará uma fonte otimizada para leitura de código com "font lig
 
 ## 🧩 9. Extensões Essenciais
 
-Abra o VS Code, vá na aba de extensões (`Ctrl + Shift + X`) e instale as recomendadas:
+Abra o VS Code, vá na aba de extensões (`Ctrl + Shift + X`) e instale as ferramentas abaixo. Elas foram divididas por domínio para facilitar o entendimento do nosso ecossistema:
 
-- Biome - Oficial da biomejs (Lembre-se de clicar em Switch to Pre-Release Version)
-- Prettier - Code formatter - Para diagramação de HTML e CSS
-- Auto Rename Tag
-- Code Snap
-- DotENV
-- ES7+ React/Redux/React-Native snippets
-- Github Copilot Chat
-- GitLens - Git supercharged
-- Live Server
-- Material Icon Theme
-- Node.js Exec
-- PowerShell
-- React Native Tools
-- Simple React Snippets
-- Tailwind CSS IntelliSense
+### 🛠️ Motores e Formatadores
+
+- **Biome** - Oficial da biomejs _(Clique em Switch to Pre-Release Version)_. O coração do nosso JS/TS.
+- **Prettier - Code formatter** - O mestre da diagramação para HTML, CSS e Markdown.
+- **ESLint** - Padrão da indústria para linting (crucial para projetos com Next.js).
+
+### ⚛️ Ecossistema JS, React & Node
+
+- **ES7+ React/Redux/React-Native snippets** - Atalhos rápidos para criar componentes React (ex: digite `rfce` e dê Tab).
+- **Tailwind CSS IntelliSense** - Autocomplete, destaque de sintaxe e linting para classes do Tailwind.
+- **DotENV** - Destaca a sintaxe de arquivos `.env` (variáveis de ambiente do Node).
+- **Node.js Exec** - Executa o arquivo atual ou código selecionado no Node.js apertando F8.
+
+### 🐙 Produtividade & IA
+
+- **GitLens — Git supercharged** - Mostra quem escreveu cada linha de código e quando (Git Blame inline).
+- **GitHub Copilot Chat** - Assistente de Inteligência Artificial integrado ao editor.
+- **Error Lens** - Mostra as mensagens de erro e avisos na própria linha do código, sem precisar passar o mouse.
+- **Turbo Console Log** - Automatiza a criação de `console.log` para debug rápido no JavaScript.
+
+### 🎨 Visual, Utilitários & HTML
+
+- **Material Icon Theme** - Deixa os ícones das pastas e arquivos maravilhosos e fáceis de identificar.
+- **Color Highlight** - Pinta o fundo de códigos hexadecimais (ex: `#FFF`) com a própria cor no código.
+- **Auto Rename Tag** - Quando você altera a tag de abertura no HTML/JSX (ex: de `div` para `span`), ele altera a de fechamento junto.
+- **Live Server** - Cria um servidor local com recarregamento em tempo real para arquivos HTML puros.
+- **CodeSnap** - Tira "fotos" lindas e polidas de trechos do seu código para compartilhar.
+- **PowerShell** - Suporte avançado para os scripts de terminal no Windows.
 
 <br />
 
