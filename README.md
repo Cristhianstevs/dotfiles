@@ -4,7 +4,7 @@ Este documento contém o passo a passo exato para configurar um computador Windo
 
 <br />
 
-### 🏢 Nota de Segurança para Ambientes Corporativos (Compliance)
+### 🏢 Nota de Segurança para Ambientes Corporativos
 
 Se você está configurando este ambiente em um **computador da empresa**, preste muita atenção nestas duas regras antes de prosseguir, para garantir a conformidade com a LGPD e as políticas de Segurança da Informação (InfoSec):
 
