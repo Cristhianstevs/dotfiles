@@ -74,7 +74,7 @@ winget install -e --id Microsoft.VisualStudioCode
 **Python 3**: Motor da linguagem (Opcional). <br/>
 **Visual Studio Code**: Nosso editor de código oficial.
 
-🛑 MUITO IMPORTANTE: Após rodar os comandos acima, FECHE O POWERSHELL. Abra um novo PowerShell (agora como `$user`) para que o Windows reconheça as variáveis de ambiente recém-instaladas.
+**MUITO IMPORTANTE**: Após rodar os comandos acima, FECHE O POWERSHELL. Abra um novo PowerShell (agora como `$user`) para que o Windows reconheça as variáveis de ambiente recém-instaladas.
 
 <br />
 
