@@ -1,8 +1,6 @@
 # 🚀 Setup: Ambiente de Desenvolvimento
 
-Este documento contém o passo a passo exato para configurar um computador Windows zerado para desenvolvimento web moderno utilizando Node.js, Next.js, React e ferramentas de altíssimo desempenho como Biome e pnpm.
-
-Se estiver em um ambiente corporativo veja a [Nota de Segurança em Ambiente Corporativo](#-13-nota-de-segurança-em-ambiente-corporativo)
+Este documento contém o passo a passo exato para configurar um computador Windows zerado para desenvolvimento web moderno utilizando Node.js, Next.js, React e ferramentas de altíssimo desempenho como Biome e pnpm. Se estiver em um ambiente corporativo veja a [Nota de Segurança em Ambiente Corporativo](#-13-nota-de-segurança-em-ambiente-corporativo)
 
 <br />
 
