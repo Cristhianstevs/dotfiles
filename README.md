@@ -36,7 +36,9 @@ Além disso, o repositório foi arquitetado com uma forte preocupação voltada 
 
 <br />
 
-💡 **Convenção de Terminais:** Para evitar erros de permissão e falhas de instalação, todos os blocos de código deste guia possuem uma "tag" na primeira linha indicando o nível de privilégio exigido:
+### 💡 Convenção de Terminais
+
+Para evitar erros de permissão e falhas de instalação, todos os blocos de código deste guia possuem uma "tag" na primeira linha indicando o nível de privilégio exigido:
 
 - `$admin` → Indica que o PowerShell deve ser aberto como **Administrador** (Clique com o botão direito no menu Iniciar > Terminal como Administrador).
 - `$user` → Indica que o PowerShell deve ser aberto **Normalmente** (Permissões padrão do seu usuário).
