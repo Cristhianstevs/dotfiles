@@ -52,6 +52,9 @@ Abra o PowerShell com privilégios elevados e rode os comandos abaixo para insta
 ```powershell
 $admin
 
+# Instala VCRedist
+winget install -e --id Microsoft.VCRedist.2015+.x64
+
 # Instala o NVM
 winget install -e --id CoreyButler.NVMforWindows
 
@@ -68,6 +71,7 @@ winget install -e --id Python.Python.3
 winget install -e --id Microsoft.VisualStudioCode --override "/verysilent /mergetasks=addcontextmenufiles,addcontextmenufolders"
 ```
 
+**VCRedist**: Bibliotecas essenciais do Windows exigidas por ferramentas de alta performance. É a base do Windows para linguagens C++/Rust (Muito importante baixar). <br />
 **NVM**: Gerenciador de versões do Node. <br/>
 **Git**: Obrigatório para versionamento. <br/>
 **GitHub Desktop**: Interface visual oficial para o Git. <br/>
