@@ -1,11 +1,17 @@
 {
   "editor.fontFamily": "'JetBrains Mono', Consolas, monospace",
   "editor.fontSize": 14,
-  "editor.lineHeight": 1.7,
+  "editor.lineHeight": 1.8,
   "editor.fontLigatures": true,
   "editor.wordWrap": "on",
   "window.customTitleBarVisibility": "windowed",
   "explorer.compactFolders": false,
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "package.json": ".eslint*, eslint.config.*, prettier*, tsconfig*, vite*, pnpm-*, bun.lockb, nest*, package-lock*, biome.json*",
+    "tailwind.config.*": "tailwind.config*, postcss.config*",
+    ".env": ".env*"
+  },
 
   "workbench.iconTheme": "material-icon-theme",
   "workbench.colorTheme": "Visual Studio Dark",
@@ -24,5 +30,29 @@
 
   "json.schemaDownload.trustedDomains": {
     "https://biomejs.dev": true
+  },
+
+  "js/ts.updateImportsOnFileMove.enabled": "always",
+
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "mdx": "javascriptreact"
+  },
+  "emmet.syntaxProfiles": {
+    "javascript": "jsx",
+    "mdx": "jsx"
+  },
+
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "biomejs.biome",
+
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }
