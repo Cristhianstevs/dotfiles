@@ -21,9 +21,11 @@
   "files.insertFinalNewline": true,
 
   "github.copilot.enable": {
-    "*": false,
+    "*": true,
     "plaintext": false,
-    "markdown": false
+    "markdown": false,
+    "scminput": false,
+    "dotenv": false
   },
   "gitlens.ai.model": "vscode",
   "gitlens.ai.vscode.model": "copilot:gpt-4.1",
