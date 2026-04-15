@@ -4,6 +4,7 @@
   "editor.lineHeight": 1.8,
   "editor.fontLigatures": true,
   "editor.wordWrap": "on",
+  "workbench.tree.indent": 15,
   "window.customTitleBarVisibility": "windowed",
   "explorer.compactFolders": false,
   "explorer.fileNesting.enabled": true,
