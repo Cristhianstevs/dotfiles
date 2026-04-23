@@ -457,6 +457,8 @@ winget install -e --id voidtools.Everything
 # Instala o WinRAR
 winget install -e --id RARLab.WinRAR
 
+# Instala o Free Download Manager
+winget install -e --id SoftDeluxe.FreeDownloadManager
 
 $user
 
@@ -466,6 +468,7 @@ winget install -e --id Notion.Notion
 
 **Everything**: Motor de busca instantânea de arquivos no disco (Exige Admin). <br />
 **WinRAR**: O clássico e poderoso compactador/descompactador de arquivos (Exige Admin). <br />
+**Free Download Manager**: Acelerador e organizador gratuito de downloads, suporta torrents, arquivos e vídeos. <br />
 **Notion**: Plataforma líder para anotações, wikis e organização de projetos.
 
 ### 🎧 Entretenimento
