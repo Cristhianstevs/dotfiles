@@ -16,6 +16,7 @@
 
   "workbench.iconTheme": "material-icon-theme",
   "workbench.colorTheme": "Visual Studio Dark",
+  "workbench.startupEditor": "none",
 
   "files.autoSave": "onFocusChange",
   "files.trimTrailingWhitespace": true,
