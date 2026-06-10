@@ -67,6 +67,9 @@ winget install -e --id GitHub.GitHubDesktop
 # Instala o Python 3
 winget install -e --id Python.Python.3
 
+# Instala o SDK do .NET 10 (LTS)
+winget install -e --id Microsoft.DotNet.SDK.10
+
 # Instala o Visual Studio Code
 winget install -e --id Microsoft.VisualStudioCode --override "/verysilent /mergetasks=addcontextmenufiles,addcontextmenufolders"
 ```
@@ -76,6 +79,7 @@ winget install -e --id Microsoft.VisualStudioCode --override "/verysilent /merge
 **Git**: Obrigatório para versionamento. <br/>
 **GitHub Desktop**: Interface visual oficial para o Git. <br/>
 **Python 3**: Motor da linguagem (Opcional). <br/>
+**Microsoft .NET SDK 10**: Kit de desenvolvimento de software completo contendo o compilador e as bibliotecas base para criar aplicações backend robustas, APIs e sistemas com C#. <br />
 **Visual Studio Code**: Nosso editor de código oficial. Com menus de contexto do botão direito (Abrir com Code)
 
 **MUITO IMPORTANTE**: Após rodar os comandos acima, FECHE O POWERSHELL. Abra um novo PowerShell (agora como `$user`) para que o Windows reconheça as variáveis de ambiente recém-instaladas.
