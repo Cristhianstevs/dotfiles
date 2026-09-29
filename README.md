@@ -118,6 +118,8 @@ npm -v
 
 O Node.js já instala o **npm**, mas utilizaremos o **pnpm** como gerenciador de pacotes principal por ser rápido, econômico em espaço e funcionar muito bem em projetos modernos com React e Next.js.
 
+**OBSERVAÇÃO:** Após a instalação abaixo, feche e abra novamente o PowerShell para que as alterações feitas no ambiente sejam carregadas e consiga ver a versão.
+
 ```powershell
 $user
 
@@ -242,7 +244,7 @@ Para garantir que tudo foi instalado corretamente, verifique a versão de cada f
 $user
 
 nvm --version
-nvm current
+nvm default
 node -v
 npm -v
 pnpm -v
