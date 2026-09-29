@@ -1,6 +1,6 @@
 # 🚀 Setup: Ambiente de Desenvolvimento
 
-Este documento contém o passo a passo exato para configurar um computador Windows zerado para desenvolvimento web moderno utilizando Node.js, Next.js, React e ferramentas de altíssimo desempenho como Biome e pnpm. Se estiver em um ambiente corporativo veja a [Nota de Segurança em Ambiente Corporativo](#-13-nota-de-segurança-em-ambiente-corporativo)
+Este documento contém o passo a passo exato para configurar um computador Windows zerado para desenvolvimento web moderno utilizando Node.js, Next.js, React e ferramentas modernas como Biome e pnpm. Se estiver em um ambiente corporativo veja a [Nota de Segurança em Ambiente Corporativo](#-13-nota-de-segurança-em-ambiente-corporativo)
 
 <br />
 
@@ -14,19 +14,19 @@ Configurar uma nova máquina de desenvolvimento costuma ser um processo tedioso,
 
 Para quem chega de fora, adotar esta arquitetura resolve imediatamente problemas clássicos e desgastantes do dia a dia de um desenvolvedor web:
 
-- **O fim do "Na minha máquina funciona":** Padroniza versões do Node (via NVM) e garante que todos usem o mesmo gerenciador de pacotes na mesma versão (via Corepack/pnpm).
+- **O fim do "Na minha máquina funciona":** Padroniza versões do Node (via NVM) e utiliza o pnpm como gerenciador de pacotes principal.
 
 - **A paz na formatação do HTML:** Resolve o pesadelo de quebra de tags vazias e conflitos de indentação ao adotar uma arquitetura de "melhor dos dois mundos" (Biome governando o JavaScript/TypeScript e Prettier diagramando o HTML/CSS).
 
 - **Fim do esforço manual:** Adoção da filosofia _Format on Save_ e _Auto Fix_. O desenvolvedor apenas foca na lógica, aperta `Ctrl + S`, e o editor magicamente formata o documento, resolve quebras de linha e organiza as importações.
 
-- **Isolamento de preferências:** Divide claramente o que é gosto pessoal (fontes, temas e configurações visuais no `user/settings.json`) do que é regra ditatorial da equipe (`.vscode/settings.json` e `.editorconfig`).
+- **Isolamento de preferências:** Divide claramente o que é gosto pessoal (fontes, temas e configurações visuais no `user/settings.json`) do que é regra do projeto (`.vscode/settings.json` e `.editorconfig`).
 
 <br />
 
 ## 🧠 A Experiência e o Conceito
 
-Este ambiente foi desenhado com a mentalidade de **Consistência acima da Preferência**. Tudo acontece de maneira intencionalmente controlada. A escolha de priorizar ferramentas escritas em Rust (como o Biome) garante uma performance absurda no linting e formatação de projetos React massivos.
+Este ambiente foi desenhado com a mentalidade de **Consistência acima da Preferência**. Tudo acontece de maneira intencionalmente controlada. A escolha de priorizar ferramentas escritas em Rust (como o Biome) garante uma excelente performance no linting e formatação de projetos React.
 
 Além disso, o repositório foi arquitetado com uma forte preocupação voltada para a **Experiência do Desenvolvedor (DX)** aliada ao **Compliance Corporativo**, garantindo que o fluxo seja moderno, mas seguro o suficiente para rodar em redes empresariais rígidas sem ferir regras de InfoSec ou LGPD.
 
@@ -38,10 +38,13 @@ Além disso, o repositório foi arquitetado com uma forte preocupação voltada 
 
 ### 💡 Convenção de Terminais
 
-Para evitar erros de permissão e falhas de instalação, todos os blocos de código deste guia possuem uma "tag" na primeira linha indicando o nível de privilégio exigido:
+Para evitar erros de permissão e falhas de instalação, todos os blocos de código deste guia possuem uma "tag" na primeira linha indicando onde o comando deve ser executado:
 
 - `$admin` → Indica que o PowerShell deve ser aberto como **Administrador** (Clique com o botão direito no menu Iniciar > Terminal como Administrador).
 - `$user` → Indica que o PowerShell deve ser aberto **Normalmente** (Permissões padrão do seu usuário).
+- `$projeto` → Indica que o comando deve ser executado no terminal **dentro da pasta do projeto**.
+
+> As tags acima servem apenas como indicação visual e não fazem parte dos comandos que devem ser executados.
 
 <br />
 
@@ -74,21 +77,21 @@ winget install -e --id Microsoft.DotNet.SDK.10
 winget install -e --id Microsoft.VisualStudioCode --override "/verysilent /mergetasks=addcontextmenufiles,addcontextmenufolders"
 ```
 
-**VCRedist**: Bibliotecas essenciais do Windows exigidas por ferramentas de alta performance. É a base do Windows para linguagens C++/Rust (Muito importante baixar). <br />
-**NVM**: Gerenciador de versões do Node. <br/>
-**Git**: Obrigatório para versionamento. <br/>
-**GitHub Desktop**: Interface visual oficial para o Git. <br/>
-**Python 3**: Motor da linguagem (Opcional). <br/>
-**Microsoft .NET SDK 10**: Kit de desenvolvimento de software completo contendo o compilador e as bibliotecas base para criar aplicações backend robustas, APIs e sistemas com C#. <br />
-**Visual Studio Code**: Nosso editor de código oficial. Com menus de contexto do botão direito (Abrir com Code)
+**VCRedist**: Bibliotecas essenciais do Windows exigidas por diversas ferramentas e aplicações desenvolvidas em C/C++. <br />
+**NVM**: Gerenciador de versões do Node.js. Permite instalar, atualizar e alternar entre diferentes versões do Node sem bagunçar o sistema. <br/>
+**Git**: Obrigatório para versionamento e integração com repositórios. <br/>
+**GitHub Desktop**: Interface visual oficial do GitHub para trabalhar com Git e repositórios. <br/>
+**Python 3**: Motor da linguagem Python (Opcional). <br/>
+**Microsoft .NET SDK 10**: Kit de desenvolvimento completo contendo o compilador e as bibliotecas necessárias para criar aplicações backend, APIs e sistemas utilizando C#. <br />
+**Visual Studio Code**: Nosso editor de código principal, instalado com os menus de contexto do botão direito (`Abrir com Code`).
 
-**MUITO IMPORTANTE**: Após rodar os comandos acima, FECHE O POWERSHELL. Abra um novo PowerShell (agora como `$user`) para que o Windows reconheça as variáveis de ambiente recém-instaladas.
+**MUITO IMPORTANTE**: Após rodar os comandos acima, FECHE O POWERSHELL. Abra um novo PowerShell normalmente para que o Windows reconheça corretamente as variáveis de ambiente e os programas recém-instalados.
 
 <br />
 
 ## 🟢 2. Instalação do Node.js (via NVM)
 
-Com as ferramentas base instaladas, vamos baixar o ecossistema do JavaScript de forma que possamos trocar as versões no futuro sem quebrar a máquina:
+Com as ferramentas base instaladas, vamos baixar o ecossistema do JavaScript de forma que possamos trocar ou atualizar as versões do Node no futuro sem quebrar a máquina:
 
 ```powershell
 $user
@@ -97,66 +100,88 @@ nvm install lts
 nvm use lts
 ```
 
-**Install LTS**: Baixa a versão Long Term Support (mais estável) do Node.js. <br />
-**Use LTS**: Ativa a versão instalada como padrão do sistema.
+**Install LTS**: Baixa a versão Long Term Support do Node.js, recomendada para desenvolvimento e maior estabilidade. <br />
+**Use LTS**: Ativa a versão LTS recém-instalada como versão atual do sistema.
 
-<br />
-
-## 🔓 3. Permissões e Gerenciador de Pacotes (pnpm)
-
-Agora precisamos liberar o Windows para rodar nossos scripts de desenvolvimento e configurar nosso gerenciador de pacotes:
+Para confirmar que tudo foi reconhecido corretamente:
 
 ```powershell
 $user
 
-# 1
-Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
-
-# 2
-corepack enable
-
-# 3
-corepack prepare pnpm@latest --activate
-
-# 4
-pnpm setup
+node -v
+npm -v
 ```
-
-**Execution Policy**: Libera a execução de scripts locais (Se pedir confirmação, digite 'A' ou 'S' e dê Enter). <br />
-**Corepack Enable**: Ativa o gerenciador nativo que já vem embutido no Node moderno. <br />
-**Corepack Prepare**: Baixa e ativa o pnpm na sua versão mais recente. <br />
-**pnpm Setup**: Configura o diretório global nas variáveis do Windows.
 
 <br />
 
-## 🚨 4. Pnpm não foi reconhecido?
+## 📦 3. Gerenciador de Pacotes (pnpm)
 
-Se o Windows não reconhecer o comando acima, o terminal não atualizou as variáveis de ambiente.
+O Node.js já instala o **npm**, mas utilizaremos o **pnpm** como gerenciador de pacotes principal por ser rápido, econômico em espaço e funcionar muito bem em projetos modernos com React e Next.js.
+
+```powershell
+$user
+
+# Instala o pnpm
+npx get-pnpm
+
+# Verifica a versão instalada
+pnpm -v
+```
+
+**npx get-pnpm**: Baixa e configura o pnpm utilizando o npm que já veio instalado junto do Node.js. <br />
+**pnpm**: Será nosso gerenciador principal para instalar dependências, executar scripts e gerenciar os projetos JavaScript/TypeScript.
+
+<br />
+
+## 🚨 4. pnpm não foi reconhecido?
+
+Se o Windows não reconhecer o comando `pnpm`, normalmente o terminal ainda não atualizou as variáveis de ambiente.
 
 1. Feche o PowerShell completamente.
 2. Abra um novo PowerShell.
-3. Rode novamente: `pnpm --version`
+3. Rode novamente: `pnpm -v`
 
 Se ainda assim não funcionar, reinicie o computador e tente novamente.
 
-<br />
-
-## 🌍 5. Ferramentas Globais de Desenvolvimento
-
-Com o pnpm ativado, vamos instalar as ferramentas globais que vão ditar a qualidade do nosso código:
+Caso o próprio PowerShell bloqueie a execução de scripts e mostre um erro relacionado à **Execution Policy**, execute:
 
 ```powershell
 $user
 
-# Instala o Typescript
-pnpm add -g typescript
-
-# Instala o Biome
-pnpm add -g @biomejs/biome
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 ```
 
-**TypeScript**: Instala o compilador oficial globalmente na máquina. <br />
-**Biome**: Instala o motor de formatação e linting de alta performance (fallback global).
+Se pedir confirmação, digite `S` e aperte Enter.
+
+**IMPORTANTE**: Não altere a Execution Policy sem necessidade. Em computadores corporativos, consulte primeiro a equipe de TI ou Segurança da Informação.
+
+<br />
+
+## 🌍 5. Ferramentas de Desenvolvimento
+
+Ferramentas como **TypeScript**, **Biome**, **Prettier** e outras dependências de desenvolvimento devem preferencialmente viver dentro de cada projeto.
+
+Isso garante que cada aplicação utilize exatamente as versões esperadas e evita diferenças de comportamento entre projetos antigos e novos.
+
+Por exemplo:
+
+```powershell
+$projeto
+
+# Instala o TypeScript
+pnpm add -D typescript
+
+# Instala o Biome
+pnpm add -D -E @biomejs/biome
+
+# Instala o Prettier
+pnpm add -D -E prettier
+```
+
+**TypeScript**: Instala o compilador da linguagem apenas naquele projeto, permitindo que aplicações diferentes utilizem versões diferentes sem conflitos. <br />
+**Biome**: Instala o motor de formatação e linting diretamente no projeto, garantindo consistência entre todas as máquinas que trabalharem naquele repositório.
+**Prettier**: Instala o formatador de código diretamente no projeto, garantindo que todos os desenvolvedores sigam o mesmo estilo de formatação.
+As configurações dessas ferramentas serão feitas posteriormente na seção de **Formatadores e Padronização**.
 
 <br />
 
@@ -166,55 +191,70 @@ Sempre que quiser atualizar seu ambiente, utilize os comandos abaixo. Dividimos 
 
 ### Programas do Sistema
 
+Primeiro, você pode consultar quais programas possuem atualizações disponíveis:
+
 ```powershell
 $admin
 
-winget upgrade --id Git.Git
-winget upgrade --id Microsoft.VisualStudioCode
-winget upgrade --id CoreyButler.NVMforWindows
-winget upgrade --id GitHub.GitHubDesktop
+winget upgrade
 ```
 
-**Winget Upgrade**: Atualiza ferramentas base. Recomendamos explicitar os IDs para não atualizar aplicativos paralelos do PC sem querer.
+Depois, atualize apenas as ferramentas que desejar:
+
+```powershell
+$admin
+
+winget upgrade -e --id Git.Git
+winget upgrade -e --id Microsoft.VisualStudioCode
+winget upgrade -e --id CoreyButler.NVMforWindows
+winget upgrade -e --id GitHub.GitHubDesktop
+winget upgrade -e --id Python.Python.3
+winget upgrade -e --id Microsoft.DotNet.SDK.10
+```
+
+**Winget Upgrade**: Lista e atualiza programas instalados através do WinGet. Preferimos explicitar os IDs para ter controle sobre o que será atualizado, em vez de atualizar todos os aplicativos do computador de uma vez.
 
 ### Ecossistema de Desenvolvimento
 
 ```powershell
 $user
 
-# Atualiza o Node.js
+# Atualiza o Node.js para a versão LTS mais recente
 nvm install lts
 nvm use lts
 
 # Atualiza o pnpm
-corepack prepare pnpm@latest --activate
-
-# Atualiza ferramentas
-pnpm update -g typescript @biomejs/biome
+pnpm self-update
 ```
 
-**NVM**: Atualiza para o Node.js LTS do momento. <br />
-**Corepack**: Puxa a versão mais recente do pnpm. <br />
-**Pnpm update**: Atualiza as nossas ferramentas globais de código.
+**NVM**: Instala a versão LTS mais recente do Node.js e a ativa no ambiente. <br />
+**pnpm self-update**: Atualiza o pnpm para a versão mais recente disponível.
+
+**OBSERVAÇÃO:** Ferramentas como **TypeScript**, **Biome** e **Prettier** não são atualizadas globalmente. Como vivem dentro de cada projeto, suas versões devem ser atualizadas diretamente no projeto quando necessário.
 
 <br />
 
 ## ✅ 7. Verificação de Sucesso (Check-up)
 
-Para garantir que tudo foi instalado perfeitamente, verifique a versão de cada motor. Se algum comando retornar "não reconhecido", reinicie o computador.
+Para garantir que tudo foi instalado corretamente, verifique a versão de cada ferramenta principal:
 
 ```powershell
 $user
 
+nvm --version
+nvm current
 node -v
 npm -v
 pnpm -v
-tsc -v
-biome --version
+git --version
 python --version
+dotnet --version
 code --version
-git -v
 ```
+
+Cada comando deve retornar a versão instalada da respectiva ferramenta.
+
+Se algum deles retornar **"não reconhecido"**, feche completamente o PowerShell e abra novamente para atualizar as variáveis de ambiente. Caso o problema continue, reinicie o computador e teste novamente.
 
 <br />
 
@@ -238,13 +278,13 @@ Abra o VS Code, vá na aba de extensões (`Ctrl + Shift + X`) e instale as ferra
 ### 🛠️ Motores e Formatadores
 
 - **Biome** <br />
-  Oficial da biomejs _(Clique em Switch to Pre-Release Version)_. O coração do nosso JS/TS.
+  Oficial da biomejs. O coração do nosso JS/TS, responsável pela formatação e linting.
 
 - **Prettier - Code formatter** <br />
-  O mestre da diagramação para HTML, CSS e Markdown.
+  Responsável pela formatação de HTML, CSS e Markdown.
 
-- **ESLint** <br />
-  Padrão da indústria para linting (crucial para projetos com Next.js).
+- **ESLint (Opcional)** <br />
+  Utilizado em projetos que já possuem ESLint ou dependem de regras/plugins específicos.
 
 ### ⚛️ Ecossistema JS, React & Node
 
@@ -282,9 +322,6 @@ Abra o VS Code, vá na aba de extensões (`Ctrl + Shift + X`) e instale as ferra
 - **Color Highlight** <br />
   Pinta o fundo de códigos hexadecimais (ex: `#FFF`) com a própria cor no código.
 
-- **Auto Rename Tag** <br />
-  Quando você altera a tag de abertura no HTML/JSX (ex: de `div` para `span`), ele altera a de fechamento junto.
-
 - **Live Server** <br />
   Cria um servidor local com recarregamento em tempo real para arquivos HTML puros.
 
@@ -304,15 +341,15 @@ Vamos forçar o VS Code a usar nossas regras de interface e comportamento.
 
 1. No VS Code, aperte `F1` (ou `Ctrl + Shift + P`).
 2. Digite `Open User Settings (JSON)` e dê Enter.
-3. Apague tudo que estiver lá, cole o código que está no arquivo [user/settings.json](user/settings.json)
+3. Em uma instalação nova, substitua o conteúdo pelo código do arquivo [user/settings.json](user/settings.json). Caso já possua configurações pessoais, mescle apenas o que desejar manter.
 
-### 10.2 Projeto (Regras da Equipe)
+### 10.2 Projeto (Regras do Projeto)
 
 Estas regras forçam os formatadores (Biome e Prettier) a agirem nas linguagens corretas em qualquer máquina.
 
 1. Crie uma pasta chamada `.vscode` na raiz do projeto.
 2. Dentro da pasta, crie um arquivo `settings.json` e cole o código que está em [.vscode/settings.json](.vscode/settings.json).
-3. Crie um arquivo `extensions.json` para recomendar extensões automaticamente para a equipe e cole o código de [.vscode/extensions.json](.vscode/extensions.json).
+3. Crie um arquivo `extensions.json` para recomendar extensões automaticamente para o projeto e cole o código de [.vscode/extensions.json](.vscode/extensions.json).
 
 <br />
 
@@ -331,7 +368,7 @@ _Nota_: Caso o framework já tenha gerado um `biome.json`, renomeie para `.jsonc
 
 ### 11.2 O Formatador HTML/CSS (`.prettierrc`)
 
-O Biome é o rei do JS, mas o Prettier é o mestre do design visual para tags web.
+O Biome cuida do nosso ecossistema JavaScript/TypeScript, enquanto o Prettier fica responsável pela formatação de HTML, CSS e Markdown.
 
 1. Crie o arquivo `.prettierrc` na raiz
 2. Cole o código do nosso [.prettierrc](.prettierrc).
@@ -345,7 +382,7 @@ Garante que o tamanho do TAB (2 espaços) funcione em qualquer editor de código
 
 ### 11.4 Prevenção de Bugs de Sistema (`.gitattributes`)
 
-Impede que o Windows mude silenciosamente a quebra de linha dos arquivos, o que quebraria os formatadores.
+Padroniza as quebras de linha dos arquivos de texto em LF, evitando diferenças desnecessárias entre Windows, Linux e macOS.
 
 1. Crie o arquivo `.gitattributes` na raiz
 2. Cole o código do nosso [.gitattributes](.gitattributes).
@@ -387,15 +424,15 @@ Ficou no ponto para usar em qualquer projeto ou máquina nova!
 
 ## 🏢 13. Nota de Segurança em Ambiente Corporativo
 
-Se você está configurando este ambiente em um **computador da empresa**, por favor, leia atentamente antes de prosseguir. Este _dotfiles_ foi montado para máxima produtividade, mas ambientes corporativos possuem regras estritas de Segurança da Informação (InfoSec) e LGPD:
+Se você está configurando este ambiente em um **computador da empresa**, por favor, leia atentamente antes de prosseguir. Este _dotfiles_ foi montado com foco em produtividade e no meu ambiente pessoal, mas computadores corporativos possuem regras próprias de Segurança da Informação (InfoSec) e LGPD.
 
 <br />
 
 1. **🛑 Validação Obrigatória (InfoSec):** Antes de realizar qualquer download, importação de configurações ou execução dos comandos deste repositório na rede da empresa, **envie o link deste projeto para o setor de Segurança da Informação (ou TI) para validação prévia.**
 
-2. **⚠️ Execução de Scripts e Permissões de Admin:** A Seção 1 exige privilégios de Administrador. Além disso, o comando `Set-ExecutionPolicy` (Seção 3) altera as políticas de execução do Windows. Em redes corporativas, isso geralmente é bloqueado e monitorado, podendo gerar alertas graves na TI. Não force a execução sem permissão.
+2. **⚠️ Execução de Scripts e Permissões de Admin:** A Seção 1 utiliza privilégios de Administrador. Além disso, o Troubleshooting da Seção 4 apresenta o comando `Set-ExecutionPolicy` caso o PowerShell bloqueie a execução de scripts. Em computadores corporativos, não altere políticas de execução ou configurações de segurança sem autorização da equipe responsável.
 
-3. **🤖 Inteligência Artificial (Código Proprietário):** Extensões como o GitHub Copilot enviam contexto do seu código para servidores externos. **NÃO FAÇA LOGIN** nestas extensões com contas pessoais/estudante sem a aprovação explícita do seu Tech Lead. O vazamento de regras de negócio ou dados de clientes é uma violação gravíssima.
+3. **🤖 Inteligência Artificial (Código Proprietário):** Ferramentas de IA podem processar contexto do código para fornecer sugestões e respostas. Em ambientes corporativos, utilize apenas ferramentas, contas e configurações previamente aprovadas pela empresa e pela equipe de Segurança da Informação.
 
 4. **🛡️ Estabilidade de Software:** Evite usar versões _Pre-Release_ de extensões no horário de trabalho. Opte sempre pelas versões _Stable_ para evitar falhas inesperadas de produtividade.
 
