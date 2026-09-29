@@ -189,7 +189,7 @@ As configurações dessas ferramentas serão feitas posteriormente na seção de
 
 ## 🔄 6. Atualização do Ambiente (Update)
 
-Sempre que quiser atualizar seu ambiente, utilize os comandos abaixo. Dividimos em dois blocos para respeitar a arquitetura de permissões do sistema:
+Sempre que quiser atualizar seu ambiente, utilize os comandos abaixo. Dividimos a atualização em blocos para respeitar a arquitetura de permissões do sistema e separar ferramentas globais das dependências de cada projeto:
 
 ### Programas do Sistema
 
@@ -232,7 +232,30 @@ pnpm self-update
 **NVM**: Instala a versão LTS mais recente do Node.js e a ativa no ambiente. <br />
 **pnpm self-update**: Atualiza o pnpm para a versão mais recente disponível.
 
-**OBSERVAÇÃO:** Ferramentas como **TypeScript**, **Biome** e **Prettier** não são atualizadas globalmente. Como vivem dentro de cada projeto, suas versões devem ser atualizadas diretamente no projeto quando necessário.
+### Ferramentas do Projeto
+
+Ferramentas como **TypeScript**, **Biome** e **Prettier** são instaladas localmente em cada projeto. Dessa forma, cada projeto mantém suas próprias versões e pode ser atualizado de forma independente.
+
+```powershell
+$projeto
+
+# Verifica dependencias desatualizadas
+pnpm outdated
+
+# Atualiza o Biome
+pnpm update --latest @biomejs/biome
+
+# Atualiza o TypeScript
+pnpm update --latest typescript
+
+# Atualiza o Prettier
+pnpm update --latest prettier
+```
+
+**pnpm outdated**: Verifica quais dependências do projeto possuem versões mais recentes disponíveis. <br />
+**pnpm update --latest**: Atualiza as dependências especificadas para suas versões mais recentes, inclusive quando a nova versão está fora do intervalo definido atualmente no `package.json`.
+
+**OBSERVAÇÃO:** TypeScript, Biome e Prettier não são atualizados globalmente. Como vivem dentro de cada projeto, a atualização deve ser executada individualmente nos projetos em que você deseja adotar as novas versões.
 
 <br />
 
