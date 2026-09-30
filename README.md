@@ -1,6 +1,6 @@
 # 🚀 Setup: Ambiente de Desenvolvimento
 
-Este documento contém o passo a passo exato para configurar um computador Windows zerado para desenvolvimento web moderno utilizando Node.js, Next.js, React e ferramentas modernas como Biome e pnpm. Se estiver em um ambiente corporativo veja a [Nota de Segurança em Ambiente Corporativo](#-13-nota-de-segurança-em-ambiente-corporativo)
+Este documento contém o passo a passo exato para configurar um computador Windows zerado para desenvolvimento web moderno utilizando Node.js, Next.js, React e ferramentas modernas como Biome, npm e pnpm. Se estiver em um ambiente corporativo veja a [Nota de Segurança em Ambiente Corporativo](#-14-nota-de-segurança-em-ambiente-corporativo)
 
 <br />
 
@@ -14,7 +14,7 @@ Configurar uma nova máquina de desenvolvimento costuma ser um processo tedioso,
 
 Para quem chega de fora, adotar esta arquitetura resolve imediatamente problemas clássicos e desgastantes do dia a dia de um desenvolvedor web:
 
-- **O fim do "Na minha máquina funciona":** Padroniza versões do Node (via NVM) e utiliza o pnpm como gerenciador de pacotes principal.
+- **O fim do "Na minha máquina funciona":** Padroniza versões do Node (via NVM) e utiliza o pnpm como gerenciador de pacotes principal dos projetos, mantendo o npm para ferramentas globais quando fizer sentido.
 
 - **A paz na formatação do HTML:** Resolve o pesadelo de quebra de tags vazias e conflitos de indentação ao adotar uma arquitetura de "melhor dos dois mundos" (Biome governando o JavaScript/TypeScript e Prettier diagramando o HTML/CSS).
 
@@ -91,7 +91,7 @@ winget install -e --id Microsoft.VisualStudioCode --override "/verysilent /merge
 
 ## 🟢 2. Instalação do Node.js (via NVM)
 
-Com as ferramentas base instaladas, vamos baixar o ecossistema do JavaScript de forma que possamos trocar ou atualizar as versões do Node no futuro sem quebrar a máquina:
+Com as ferramentas base instaladas, vamos baixar o ecossistema do JavaScript de forma que possamos trocar ou atualizar as versões do Node no futuro sem quebrar a máquina. O npm acompanha a instalação do Node.js e terá seu próprio papel no nosso ambiente:
 
 ```powershell
 $user
@@ -114,9 +114,42 @@ npm -v
 
 <br />
 
-## 📦 3. Gerenciador de Pacotes (pnpm)
+## 📦 3. Gerenciador de Pacotes e Ferramentas Globais (npm)
 
-O Node.js já instala o **npm**, mas utilizaremos o **pnpm** como gerenciador de pacotes principal por ser rápido, econômico em espaço e funcionar muito bem em projetos modernos com React e Next.js.
+O **npm** já veio instalado junto do Node.js na etapa anterior. Não precisamos instalar outro gerenciador para tê-lo disponível: ele faz parte do ambiente Node que acabamos de preparar.
+
+Neste setup, npm e pnpm trabalham juntos, cada um com seu papel:
+
+- **npm**: Instala ferramentas globais quando precisamos utilizá-las fora de um projeto com `package.json`.
+- **pnpm**: Continua como gerenciador principal das dependências e scripts dos projetos com `package.json`.
+
+### Biome Global para Projetos Estáticos
+
+Para projetos HTML/CSS/JS simples, sem `package.json`, podemos instalar o Biome globalmente pelo npm:
+
+```powershell
+$user
+
+# Instala o Biome globalmente
+npm install -g @biomejs/biome
+
+# Verifica a instalação
+npm list -g --depth=0 @biomejs/biome
+biome --version
+```
+
+**npm install -g**: Instala a ferramenta no ambiente global do npm, permitindo utilizá-la pelo terminal sem adicioná-la às dependências de cada projeto. <br />
+**Biome Global**: Atende nossos projetos estáticos sem criar `package.json`, `package-lock.json` ou `node_modules` dentro deles.
+
+**IMPORTANTE**: Essa instalação global é opcional. Em projetos Node/React/TS com `package.json`, continuamos preferindo o Biome local via pnpm para controlar a versão de cada projeto. O Node e o npm são necessários para instalar a ferramenta neste fluxo; o site estático continua sem precisar de um projeto Node.
+
+**OBSERVAÇÃO:** Ao trocar a versão do Node pelo NVM, confira novamente `npm -v` e `biome --version`. A disponibilidade das ferramentas globais pode depender do ambiente ativo. Se o Biome não estiver disponível, verifique a instalação antes de alterar caminhos ou reinstalar ferramentas.
+
+<br />
+
+## 📦 4. Gerenciador de Pacotes (pnpm)
+
+Com o npm disponível, vamos instalar o **pnpm**, nosso gerenciador de pacotes principal para projetos com `package.json`, por ser rápido, econômico em espaço e funcionar muito bem em projetos modernos com React e Next.js.
 
 **OBSERVAÇÃO:** Após a instalação abaixo, feche e abra novamente o PowerShell para que as alterações feitas no ambiente sejam carregadas e consiga ver a versão.
 
@@ -131,19 +164,37 @@ pnpm -v
 ```
 
 **npx get-pnpm**: Baixa e configura o pnpm utilizando o npm que já veio instalado junto do Node.js. <br />
-**pnpm**: Será nosso gerenciador principal para instalar dependências, executar scripts e gerenciar os projetos JavaScript/TypeScript.
+**pnpm**: Será nosso gerenciador principal para instalar dependências, executar scripts e gerenciar os projetos JavaScript/TypeScript com `package.json`.
+
+**Regra de Ouro**: Nos projetos que seguem este guia, use pnpm para as dependências locais e mantenha o `pnpm-lock.yaml` versionado. Não alterne entre `npm install` e `pnpm install` no mesmo projeto, evitando misturar arquivos de lock. O npm continua disponível para as ferramentas globais, sem interferir nesse fluxo.
+
+**OBSERVAÇÃO:** Neste setup, evitamos instalações globais pelo pnpm. Para ferramentas como o Biome global, utilize o npm conforme a seção anterior.
 
 <br />
 
-## 🚨 4. pnpm não foi reconhecido?
+## 🚨 5. npm ou pnpm não foi reconhecido?
 
-Se o Windows não reconhecer o comando `pnpm`, normalmente o terminal ainda não atualizou as variáveis de ambiente.
+Se o Windows não reconhecer o comando `npm` ou `pnpm`, normalmente o terminal ainda não atualizou as variáveis de ambiente.
 
 1. Feche o PowerShell completamente.
 2. Abra um novo PowerShell.
-3. Rode novamente: `pnpm -v`
+3. Rode novamente: `node -v`, `npm -v` e `pnpm -v`
 
 Se ainda assim não funcionar, reinicie o computador e tente novamente.
+
+Se o problema for com o **npm**, confirme se uma versão do Node está ativa no NVM antes de tentar instalar o pnpm. Se apenas o **pnpm** não funcionar, confirme que a instalação da Seção 4 foi concluída.
+
+Para conferir quais comandos o Windows está encontrando:
+
+```powershell
+$user
+
+where.exe node.*
+where.exe npm.*
+where.exe pnpm.*
+```
+
+**OBSERVAÇÃO:** Se uma operação global do pnpm apresentar `ERR_PNPM_GLOBAL_BIN_DIR_NOT_IN_PATH`, isso não significa, por si só, que as dependências locais dos projetos deixaram de funcionar. Para o Biome global, siga o fluxo com npm da Seção 3. Não altere `PATH`, `PNPM_HOME` ou apague executáveis do NVM sem identificar primeiro a origem do problema.
 
 Caso o próprio PowerShell bloqueie a execução de scripts e mostre um erro relacionado à **Execution Policy**, execute:
 
@@ -159,13 +210,13 @@ Se pedir confirmação, digite `S` e aperte Enter.
 
 <br />
 
-## 🌍 5. Ferramentas de Desenvolvimento
+## 🌍 6. Ferramentas de Desenvolvimento
 
-Ferramentas como **TypeScript**, **Biome**, **Prettier** e outras dependências de desenvolvimento devem preferencialmente viver dentro de cada projeto.
+Em projetos Node/React/TS com `package.json`, ferramentas como **TypeScript**, **Biome**, **Prettier** e outras dependências de desenvolvimento devem preferencialmente viver dentro de cada projeto.
 
 Isso garante que cada aplicação utilize exatamente as versões esperadas e evita diferenças de comportamento entre projetos antigos e novos.
 
-Por exemplo:
+Por exemplo, dentro da pasta de um projeto com `package.json`:
 
 ```powershell
 $projeto
@@ -183,11 +234,20 @@ pnpm add -D -E prettier
 **TypeScript**: Instala o compilador da linguagem apenas naquele projeto, permitindo que aplicações diferentes utilizem versões diferentes sem conflitos. <br />
 **Biome**: Instala o motor de formatação e linting diretamente no projeto, garantindo consistência entre todas as máquinas que trabalharem naquele repositório.
 **Prettier**: Instala o formatador de código diretamente no projeto, garantindo que todos os desenvolvedores sigam o mesmo estilo de formatação.
-As configurações dessas ferramentas serão feitas posteriormente na seção de **Formatadores e Padronização**.
+
+Para utilizar essas versões pelo terminal, execute `pnpm exec biome`, `pnpm exec prettier` ou `pnpm exec tsc` dentro do projeto, após instalar as respectivas dependências. Assim, o projeto usa suas ferramentas locais mesmo quando existe uma instalação global na máquina.
+
+### E os Projetos HTML/CSS/JS sem `package.json`?
+
+Nesses projetos, utilize o **Biome global pelo npm**, conforme a Seção 3. Para HTML, CSS e Markdown no VS Code, a extensão **Prettier - Code formatter** pode utilizar o motor que já vem com ela, lendo o `.prettierrc` do projeto, conforme a [documentação da extensão](https://github.com/prettier/prettier-vscode#prettier-resolution).
+
+Não é necessário criar `package.json` nem `node_modules` apenas para ter formatação nesse cenário. Se o projeto passar a precisar de dependências, scripts ou versões fixadas para a equipe, prefira as ferramentas locais via pnpm.
+
+As configurações dessas ferramentas serão feitas posteriormente na Seção 12, de **Formatadores e Padronização**.
 
 <br />
 
-## 🔄 6. Atualização do Ambiente (Update)
+## 🔄 7. Atualização do Ambiente (Update)
 
 Sempre que quiser atualizar seu ambiente, utilize os comandos abaixo. Dividimos a atualização em blocos para respeitar a arquitetura de permissões do sistema e separar ferramentas globais das dependências de cada projeto:
 
@@ -225,16 +285,42 @@ $user
 nvm install lts
 nvm use lts
 
-# Atualiza o pnpm
+# Confirma a versão do npm que acompanha o Node ativo
+npm -v
+
+# Atualiza o pnpm fora de uma pasta de projeto
 pnpm self-update
 ```
 
-**NVM**: Instala a versão LTS mais recente do Node.js e a ativa no ambiente. <br />
-**pnpm self-update**: Atualiza o pnpm para a versão mais recente disponível.
+**NVM**: Instala a versão LTS mais recente do Node.js, com a versão do npm que acompanha essa instalação, e a ativa no ambiente. <br />
+**npm**: Confira a versão após ativar o Node. Neste guia, mantemos o npm fornecido com ele; uma atualização separada do npm deve respeitar a compatibilidade com o Node ativo. <br />
+**pnpm self-update**: Atualiza o pnpm para a versão mais recente disponível. Execute fora de uma pasta de projeto, pois dentro de projetos com o campo `packageManager` o comando pode atualizar a versão fixada no `package.json`.
+
+### Ferramentas Globais pelo npm
+
+Se você instalou o Biome global para projetos estáticos, confira e atualize essa instalação separadamente:
+
+```powershell
+$user
+
+# Verifica ferramentas globais desatualizadas
+npm outdated -g --depth=0
+
+# Atualiza o Biome global
+npm install -g @biomejs/biome@latest
+
+# Confirma a versão disponível no terminal
+biome --version
+```
+
+**npm outdated -g**: Lista ferramentas globais que possuem atualizações disponíveis. <br />
+**npm install -g @biomejs/biome@latest**: Instala a versão mais recente do Biome global, sem atualizar o Biome local de nenhum projeto.
+
+**OBSERVAÇÃO:** A atualização global passa a valer para os projetos estáticos que usam essa instalação. Após trocar o Node pelo NVM, confira também `npm list -g --depth=0` para verificar as ferramentas disponíveis no ambiente ativo.
 
 ### Ferramentas do Projeto
 
-Ferramentas como **TypeScript**, **Biome** e **Prettier** são instaladas localmente em cada projeto. Dessa forma, cada projeto mantém suas próprias versões e pode ser atualizado de forma independente.
+Em projetos com `package.json`, ferramentas como **TypeScript**, **Biome** e **Prettier** são instaladas localmente. Dessa forma, cada projeto mantém suas próprias versões e pode ser atualizado de forma independente.
 
 ```powershell
 $projeto
@@ -255,11 +341,11 @@ pnpm update --latest prettier
 **pnpm outdated**: Verifica quais dependências do projeto possuem versões mais recentes disponíveis. <br />
 **pnpm update --latest**: Atualiza as dependências especificadas para suas versões mais recentes, inclusive quando a nova versão está fora do intervalo definido atualmente no `package.json`.
 
-**OBSERVAÇÃO:** TypeScript, Biome e Prettier não são atualizados globalmente. Como vivem dentro de cada projeto, a atualização deve ser executada individualmente nos projetos em que você deseja adotar as novas versões.
+**OBSERVAÇÃO:** Os comandos acima atualizam somente as dependências do projeto atual. Execute-os individualmente nos projetos em que deseja adotar novas versões e revise as alterações no `package.json` e no `pnpm-lock.yaml`. A instalação global do Biome pelo npm é independente e segue o bloco anterior.
 
 <br />
 
-## ✅ 7. Verificação de Sucesso (Check-up)
+## ✅ 8. Verificação de Sucesso (Check-up)
 
 Para garantir que tudo foi instalado corretamente, verifique a versão de cada ferramenta principal:
 
@@ -277,13 +363,34 @@ dotnet --version
 code --version
 ```
 
-Cada comando deve retornar a versão instalada da respectiva ferramenta.
+Confira as versões retornadas pelos comandos acima.
 
-Se algum deles retornar **"não reconhecido"**, feche completamente o PowerShell e abra novamente para atualizar as variáveis de ambiente. Caso o problema continue, reinicie o computador e teste novamente.
+Se você optou pelo Biome global para projetos estáticos, confira também:
+
+```powershell
+$user
+
+npm list -g --depth=0 @biomejs/biome
+biome --version
+```
+
+Nos projetos com ferramentas locais instaladas, faça a verificação dentro da pasta do projeto:
+
+```powershell
+$projeto
+
+pnpm exec biome --version
+pnpm exec prettier --version
+pnpm exec tsc --version
+```
+
+**OBSERVAÇÃO:** Verifique apenas as ferramentas que instalou. Não encontrar `biome` globalmente não é um problema se você usa somente o Biome local nos projetos. Os comandos com `pnpm exec` pressupõem as dependências locais da Seção 6.
+
+Se algum deles retornar **"não reconhecido"**, feche completamente o PowerShell e abra novamente para atualizar as variáveis de ambiente. Caso o problema continue, consulte a Seção 5 para npm/pnpm ou a Seção 13 para o Biome.
 
 <br />
 
-## 🎨 8. Preparando o Editor (VS Code)
+## 🎨 9. Preparando o Editor (VS Code)
 
 ### Fonte: JetBrains Mono
 
@@ -296,17 +403,17 @@ O nosso VS Code usará uma fonte otimizada para leitura de código com "font lig
 
 <br />
 
-## 🧩 9. Extensões Essenciais
+## 🧩 10. Extensões Essenciais
 
 Abra o VS Code, vá na aba de extensões (`Ctrl + Shift + X`) e instale as ferramentas abaixo. Elas foram divididas por domínio para facilitar o entendimento do nosso ecossistema:
 
 ### 🛠️ Motores e Formatadores
 
 - **Biome** <br />
-  Oficial da biomejs. O coração do nosso JS/TS, responsável pela formatação e linting.
+  Oficial da biomejs. O coração do nosso JS/TS, responsável pela formatação e linting. Trabalha com o Biome local nos projetos com `package.json` ou com o global nos projetos estáticos.
 
 - **Prettier - Code formatter** <br />
-  Responsável pela formatação de HTML, CSS e Markdown.
+  Responsável pela formatação de HTML, CSS e Markdown. Prefere a versão local do projeto e pode utilizar a versão incluída na extensão em projetos estáticos sem dependências.
 
 - **ESLint (Opcional)** <br />
   Utilizado em projetos que já possuem ESLint ou dependem de regras/plugins específicos.
@@ -358,9 +465,9 @@ Abra o VS Code, vá na aba de extensões (`Ctrl + Shift + X`) e instale as ferra
 
 <br />
 
-## ⚙️ 10. Configuração do VS Code (settings.json)
+## ⚙️ 11. Configuração do VS Code (settings.json)
 
-### 10.1 Global (Preferências de Usuário)
+### 11.1 Global (Preferências de Usuário)
 
 Vamos forçar o VS Code a usar nossas regras de interface e comportamento.
 
@@ -368,7 +475,7 @@ Vamos forçar o VS Code a usar nossas regras de interface e comportamento.
 2. Digite `Open User Settings (JSON)` e dê Enter.
 3. Em uma instalação nova, substitua o conteúdo pelo código do arquivo [user/settings.json](user/settings.json). Caso já possua configurações pessoais, mescle apenas o que desejar manter.
 
-### 10.2 Projeto (Regras do Projeto)
+### 11.2 Projeto (Regras do Projeto)
 
 Estas regras forçam os formatadores (Biome e Prettier) a agirem nas linguagens corretas em qualquer máquina.
 
@@ -376,36 +483,60 @@ Estas regras forçam os formatadores (Biome e Prettier) a agirem nas linguagens 
 2. Dentro da pasta, crie um arquivo `settings.json` e cole o código que está em [.vscode/settings.json](.vscode/settings.json).
 3. Crie um arquivo `extensions.json` para recomendar extensões automaticamente para o projeto e cole o código de [.vscode/extensions.json](.vscode/extensions.json).
 
+**OBSERVAÇÃO:** Esses arquivos de configuração também devem existir nos projetos estáticos que usam Biome global. A instalação do motor pode ser global, mas as regras de formatação continuam pertencendo ao projeto.
+
 <br />
 
-## 🚀 11. Configuração de Formatadores e Padronização
+## 🚀 12. Configuração de Formatadores e Padronização
 
-Regra de Ouro: Ferramentas devem viver dentro do projeto. Copie os arquivos listados abaixo para a raiz de todo novo projeto que você iniciar.
+Regra de Ouro: Em projetos com `package.json`, prefira ferramentas locais instaladas pelo pnpm. Em projetos estáticos sem `package.json`, o Biome pode ser global pelo npm e o Prettier pode vir da extensão do VS Code. As **configurações** devem sempre viver dentro do projeto. Copie os arquivos listados abaixo para a raiz de todo novo projeto que você iniciar.
 
-### 11.1 O Formatador JavaScript/React (`biome.jsonc`)
+### 12.1 O Formatador JavaScript/React (`biome.jsonc`)
 
-Cuida da performance e linting de todo o ecossistema JS.
+Cuida da performance e linting de todo o ecossistema JS, tanto nos projetos Node/React/TS quanto nos projetos HTML/CSS/JS estáticos.
 
 1. Crie o arquivo `biome.jsonc` na raiz
 2. Cole o código do nosso [biome.jsonc](biome.jsonc).
 
 _Nota_: Caso o framework já tenha gerado um `biome.json`, renomeie para `.jsonc` e substitua o conteúdo. Não pode haver duplicidade.
 
-### 11.2 O Formatador HTML/CSS (`.prettierrc`)
+O mesmo `biome.jsonc` é utilizado pelo motor local ou global. Para conferir a versão e verificar o projeto sem alterar os arquivos, escolha o bloco correspondente:
+
+```powershell
+$projeto
+
+# Projeto com Biome instalado localmente pelo pnpm
+pnpm exec biome --version
+pnpm exec biome check .
+```
+
+```powershell
+$projeto
+
+# Projeto estático usando o Biome global pelo npm
+biome --version
+biome check .
+```
+
+**OBSERVAÇÃO:** Se o Biome indicar que o schema ou as opções da configuração estão desatualizados, execute `pnpm exec biome migrate --write` para a instalação local ou `biome migrate --write` para a global, sempre dentro do projeto. Revise as mudanças no `biome.jsonc` e rode o check novamente. Esse cuidado também vale depois de atualizar o Biome.
+
+### 12.2 O Formatador HTML/CSS (`.prettierrc`)
 
 O Biome cuida do nosso ecossistema JavaScript/TypeScript, enquanto o Prettier fica responsável pela formatação de HTML, CSS e Markdown.
 
 1. Crie o arquivo `.prettierrc` na raiz
 2. Cole o código do nosso [.prettierrc](.prettierrc).
 
-### 11.3 O Acordo de Paz Universal (`.editorconfig`)
+Em projetos com `package.json`, mantenha o Prettier local instalado pelo pnpm. Em projetos estáticos, a extensão do VS Code pode ler esse arquivo usando o motor incluído nela, sem exigir uma instalação global do Prettier.
+
+### 12.3 O Acordo de Paz Universal (`.editorconfig`)
 
 Garante que o tamanho do TAB (2 espaços) funcione em qualquer editor de código do mundo (WebStorm, Sublime, etc).
 
 1. Crie o arquivo `.editorconfig` na raiz
 2. Cole o código do nosso [.editorconfig](.editorconfig).
 
-### 11.4 Prevenção de Bugs de Sistema (`.gitattributes`)
+### 12.4 Prevenção de Bugs de Sistema (`.gitattributes`)
 
 Padroniza as quebras de linha dos arquivos de texto em LF, evitando diferenças desnecessárias entre Windows, Linux e macOS.
 
@@ -414,9 +545,9 @@ Padroniza as quebras de linha dos arquivos de texto em LF, evitando diferenças 
 
 <br />
 
-## 🔄 12. Toque Final e Troubleshooting
+## 🔄 13. Toque Final e Troubleshooting
 
-Sempre que editar os arquivos de configuração do VS Code ou do Biome pela primeira vez, aperte `F1`, digite `Reload Window` e aperte Enter para o VS Code recarregar a memória e achar o motor local.
+Sempre que editar os arquivos de configuração do VS Code ou do Biome pela primeira vez, aperte `F1`, digite `Reload Window` e aperte Enter para o VS Code recarregar a memória e encontrar o motor local ou global, conforme o tipo de projeto.
 
 **A Mágica**: Você não precisa mais usar atalhos de formatação! Graças às nossas configurações, basta salvar o arquivo (`Ctrl + S` ou clicar fora dele) que os imports serão organizados e o código formatado instantaneamente.
 
@@ -424,6 +555,37 @@ Sempre que editar os arquivos de configuração do VS Code ou do Biome pela prim
 
 1. No canto superior esquerdo: `View > Terminal > Output` (ou aperte Ctrl + Shift + U).
 2. No menu suspenso do painel (onde costuma estar escrito "Tasks" ou "Window"), troque para Biome. O erro exato estará descrito lá.
+
+### O Biome Funciona no Terminal, mas não no VS Code?
+
+Em projetos com `package.json`, confirme a instalação local com `pnpm exec biome --version`. Em projetos estáticos, confirme a global com `biome --version`. Feche e abra o VS Code se a ferramenta foi instalada ou o Node foi trocado enquanto o editor estava aberto.
+
+Se aparecer `Could not determine the version of Biome binary` ou `Failed to start the session`, confira qual executável está sendo encontrado. Para a instalação global:
+
+```powershell
+$user
+
+npm list -g --depth=0 @biomejs/biome
+npm prefix -g
+npm root -g
+where.exe biome.*
+Get-Command biome -All
+```
+
+**npm prefix -g / npm root -g**: Mostram os diretórios da instalação global ativa. <br />
+**where.exe / Get-Command**: Ajudam a identificar executáveis e atalhos que podem estar concorrendo pelo mesmo comando.
+
+Se o log ainda apontar um executável incorreto, a opção `biome.lsp.bin` permite indicar o binário conforme a [documentação da extensão do Biome](https://biomejs.dev/reference/vscode/#biomelspbin). No Windows, confirme o caminho do `biome.exe` nativo do pacote `@biomejs/cli-win32-*` correspondente à arquitetura da máquina; não aponte para um arquivo `.cmd` ou para o wrapper JavaScript do pacote.
+
+**IMPORTANTE**: Só fixe esse caminho depois de confirmar o executável correto. Um caminho absoluto da sua máquina não deve ser copiado para a configuração compartilhada do repositório nem forçar o Biome global em projetos com versão local. Não apague manualmente os atalhos gerenciados pelo NVM para tentar corrigir o problema.
+
+### O npm Reclamou da Ausência de `package.json`?
+
+Se um comando apresentar `ENOENT` ao procurar `package.json`, confira o diretório atual e se a operação deveria ser local ou global. Para instalar o Biome global, use `npm install -g @biomejs/biome`. Para verificar um site estático, entre na pasta dele e use `biome check .`. Não crie um `package.json` apenas para contornar esse erro.
+
+### O Check Encontrou Problemas de Formatação ou Lint?
+
+O check pode encontrar problemas mesmo com o Biome instalado corretamente. Leia os diagnósticos antes de aplicar correções. Para aplicar somente a formatação, use `pnpm exec biome format --write .` com a instalação local ou `biome format --write .` com a global, dentro do projeto. Correções de lint merecem revisão separada, principalmente as marcadas como `Unsafe fix`.
 
 <br />
 
@@ -447,7 +609,7 @@ Ficou no ponto para usar em qualquer projeto ou máquina nova!
 
 <br />
 
-## 🏢 13. Nota de Segurança em Ambiente Corporativo
+## 🏢 14. Nota de Segurança em Ambiente Corporativo
 
 Se você está configurando este ambiente em um **computador da empresa**, por favor, leia atentamente antes de prosseguir. Este _dotfiles_ foi montado com foco em produtividade e no meu ambiente pessoal, mas computadores corporativos possuem regras próprias de Segurança da Informação (InfoSec) e LGPD.
 
@@ -455,7 +617,7 @@ Se você está configurando este ambiente em um **computador da empresa**, por f
 
 1. **🛑 Validação Obrigatória (InfoSec):** Antes de realizar qualquer download, importação de configurações ou execução dos comandos deste repositório na rede da empresa, **envie o link deste projeto para o setor de Segurança da Informação (ou TI) para validação prévia.**
 
-2. **⚠️ Execução de Scripts e Permissões de Admin:** A Seção 1 utiliza privilégios de Administrador. Além disso, o Troubleshooting da Seção 4 apresenta o comando `Set-ExecutionPolicy` caso o PowerShell bloqueie a execução de scripts. Em computadores corporativos, não altere políticas de execução ou configurações de segurança sem autorização da equipe responsável.
+2. **⚠️ Execução de Scripts e Permissões de Admin:** A Seção 1 utiliza privilégios de Administrador. Além disso, o Troubleshooting da Seção 5 apresenta o comando `Set-ExecutionPolicy` caso o PowerShell bloqueie a execução de scripts. Em computadores corporativos, não altere políticas de execução ou configurações de segurança sem autorização da equipe responsável.
 
 3. **🤖 Inteligência Artificial (Código Proprietário):** Ferramentas de IA podem processar contexto do código para fornecer sugestões e respostas. Em ambientes corporativos, utilize apenas ferramentas, contas e configurações previamente aprovadas pela empresa e pela equipe de Segurança da Informação.
 
@@ -467,7 +629,7 @@ Se você está configurando este ambiente em um **computador da empresa**, por f
 
 <br />
 
-## 🤝 14. Ferramentas e Aplicativos Opcionais
+## 🤝 15. Ferramentas e Aplicativos Opcionais
 
 Aqui estão comandos extras para instalar ferramentas de produtividade, outros navegadores e ecossistemas adicionais caso sejam necessários no futuro. Copie e cole no PowerShell apenas o que for utilizar.
 
